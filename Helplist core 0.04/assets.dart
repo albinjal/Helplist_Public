@@ -28,7 +28,7 @@ class User {
       "op": this.op,
       "created": this.created,
       'ownedby': this.createdby,
-      // 'queue': {}
+      'queue': {'timeinqueue': 0, 'timesqueued': 0},
     };
   }
 }
@@ -67,7 +67,7 @@ class Room {
       'online': this.online,
       'bannedusers': [],
       'userphones': this.userphones,
-      'latestchange': FieldValue.serverTimestamp(),
+      'latestchanged': FieldValue.serverTimestamp(),
     });
   }
 }
@@ -76,7 +76,6 @@ String randomID() {
   var rng = Random();
   String id = (rng.nextInt(899999) + 100000).toString();
   Firestore.instance.collection('Rooms').document(id).get().then((snapshot) {
-    print('read');
     if (snapshot.exists) {
       id = randomID();
     }
@@ -90,15 +89,18 @@ Future<String> getPhoneID() {
     String phoneID = prefs.getString('phoneid');
     if (phoneID == null) {
       DocumentReference document =
-          Firestore.instance.collection('Phones').document();
+      Firestore.instance.collection('Phones').document();
       phoneID = document.documentID;
-      document.setData(
-          {'PhoneID': phoneID, 'Joined': FieldValue.serverTimestamp()});
+      document.setData({
+        'PhoneID': phoneID,
+        'Joined': FieldValue.serverTimestamp(),
+        'Rooms': [],
+      });
       prefs.setString('phoneid', phoneID);
     }
     return phoneID;
-  }, onError: () {
-    print('error');
+  }, onError: (reason) {
+    print('error: ' + reason);
   });
 }
 
@@ -150,12 +152,10 @@ void addUserToQueue(Map roomdata, String phone) {
       Firestore.instance.collection('Rooms').document(roomdata['id']);
 
   if (!currentqueue.contains(phone)) {
-    currentqueue.add(phone);
-    roomdata.update('queue', (c) {
-      return currentqueue;
+    document.updateData({
+      'queue': FieldValue.arrayUnion([phone]),
+      'latestchanged': FieldValue.serverTimestamp()
     });
-
-    document.updateData(roomdata);
   }
 }
 
@@ -175,7 +175,8 @@ void banUser(Map snapshotdata, String phoneID) {
     'users': newusers,
     'bannedusers': newbannedusers,
     'queue': FieldValue.arrayRemove([phoneID]),
-    'userphones': FieldValue.arrayRemove([phoneID])
+    'userphones': FieldValue.arrayRemove([phoneID]),
+    'latestchanged': FieldValue.serverTimestamp(),
   });
 }
 
@@ -184,11 +185,17 @@ void leaveList(Map snapshotdata, String phoneID) {
       Firestore.instance.collection('Rooms').document(snapshotdata['id']);
   Map newusers = Map.from(snapshotdata['users']);
   newusers.remove(phoneID);
-  List newqueue = List.from(snapshotdata['queue']);
-  newqueue.remove(phoneID);
   documentref.updateData({
     'users': newusers,
     'queue': FieldValue.arrayRemove([phoneID]),
     'userphones': FieldValue.arrayRemove([phoneID])
+  });
+}
+
+void addRoomToUser(String userid, String roomid, String roomname) {
+  Firestore.instance.collection('Users').document(userid).updateData({
+    'Rooms': FieldValue.arrayUnion([
+      {'id': roomid, 'name': roomname}
+    ])
   });
 }

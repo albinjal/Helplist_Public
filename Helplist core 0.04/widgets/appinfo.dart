@@ -15,7 +15,7 @@ infoDialog() {
           Container(
             child: Text(
                 'Helplist was created to simplify the process of queueing for help.'
-                '\nTo use the app, join a list by entering the list ID or, if you want to offer help, create a list and invite others.'),
+                    '\nTo use the app, join a list by entering the list ID or, if you want to offer help, create a list and share the list ID.'),
             padding: EdgeInsets.all(10),
           ),
           Container(

@@ -89,14 +89,17 @@ class Roomview extends StatelessWidget {
                                         size: 60,
                                       ),
                                       onPressed: () {
-                                        currentqueue.removeAt(
-                                            currentqueue.indexWhere((e) {
-                                          return e == user;
-                                        }, 0));
-                                        roomdata.update('queue', (c) {
-                                          return currentqueue;
+                                        document.updateData({
+                                          'queue': FieldValue.arrayRemove([
+                                            currentqueue.firstWhere((element) {
+                                              return element == user;
+                                            }, orElse: () {
+                                              print('cant find');
+                                            })
+                                          ]),
+                                          'latestchanged':
+                                              FieldValue.serverTimestamp()
                                         });
-                                        document.updateData(roomdata);
                                       });
                                 } else {
                                   return Text('');
@@ -141,14 +144,17 @@ class Roomview extends StatelessWidget {
                                         size: 45,
                                       ),
                                       onPressed: () {
-                                        currentqueue.removeAt(
-                                            currentqueue.indexWhere((e) {
-                                          return e == user;
-                                        }, 0));
-                                        roomdata.update('queue', (c) {
-                                          return currentqueue;
+                                        document.updateData({
+                                          'queue': FieldValue.arrayRemove([
+                                            currentqueue.firstWhere((element) {
+                                              return element == user;
+                                            }, orElse: () {
+                                              print('cant find');
+                                            })
+                                          ]),
+                                          'latestchanged':
+                                              FieldValue.serverTimestamp()
                                         });
-                                        document.updateData(roomdata);
                                       });
                                 } else
                                   return Text('');
@@ -171,6 +177,7 @@ class Roomview extends StatelessWidget {
                             label: (Text('Queue Me')),
                             onPressed: () {
                               addUserToQueue(roomdata, this.phone);
+                              print(snapshot.data.data['created'].runtimeType);
                             }),
                         appBar: AppBar(
                             actions: <Widget>[],

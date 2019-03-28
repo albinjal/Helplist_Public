@@ -92,7 +92,7 @@ class _Memberdialogstate extends State<Membersdialog> {
   Widget build(context) {
     List<Widget> _memberlist = [
       Container(
-        child: Text('List Members:'),
+        child: Text('Non Admin list Members:'),
       )
     ];
     for (Map user in widget.snapshotdata['users'].values) {

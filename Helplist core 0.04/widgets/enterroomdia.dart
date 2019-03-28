@@ -49,6 +49,7 @@ enterDiaRoom(DocumentSnapshot snapshot, context, phoneid) {
                           builder: (context) => Roomview(data['id'], phoneid),
                         ),
                       );
+                      addRoomToUser(phoneid, snapshot.documentID, data['']);
                     }
                   },
                   maxLength: 12,

@@ -6,14 +6,13 @@ import 'editdialog.dart';
 class InfoScreen extends StatelessWidget {
   AsyncSnapshot snapshot;
   String phone;
-
   InfoScreen(this.snapshot, this.phone);
 
   @override
   Widget build(BuildContext context) {
     Map snapshotdata = this.snapshot.data.data;
     double factor = 1.1;
-
+    DateTime times = snapshotdata['created'].toDate();
     List<Widget> Colcontent = [
       Divider(),
       ListTile(
@@ -36,17 +35,35 @@ class InfoScreen extends StatelessWidget {
         leading: Icon(Icons.calendar_today),
         title: Text(
           'Created: ' +
-              snapshotdata['created'].toLocal().year.toString() +
+              times
+                  .toLocal()
+                  .year
+                  .toString() +
               '-' +
-              snapshotdata['created'].toLocal().month.toString() +
+              times
+                  .toLocal()
+                  .month
+                  .toString() +
               '-' +
-              snapshotdata['created'].toLocal().day.toString(),
+              times
+                  .toLocal()
+                  .day
+                  .toString(),
         ),
-        subtitle: Text(snapshotdata['created'].toLocal().hour.toString() +
+        subtitle: Text(times
+            .toLocal()
+            .hour
+            .toString() +
             ':' +
-            snapshotdata['created'].toLocal().minute.toString() +
+            times
+                .toLocal()
+                .minute
+                .toString() +
             ':' +
-            snapshotdata['created'].toLocal().second.toString()),
+            times
+                .toLocal()
+                .second
+                .toString()),
       ),
       // Divider(),
       // ListTile(
@@ -167,9 +184,15 @@ class InfoScreen extends StatelessWidget {
                   // ),
                   Text(
                     'Joined: ' +
-                        user['created'].day.toString() +
+                        user['created']
+                            .toDate()
+                            .day
+                            .toString() +
                         '/' +
-                        user['created'].month.toString(),
+                        user['created']
+                            .toDate()
+                            .month
+                            .toString(),
                     textScaleFactor: 0.8,
                   )
                 ],

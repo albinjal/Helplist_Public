@@ -1,8 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'routes.dart';
 
-void main() {
+void main() async {
+  final Firestore firestore = Firestore();
+  await firestore.settings(timestampsInSnapshotsEnabled: true);
   runApp(MyApp());
 }
 

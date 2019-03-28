@@ -102,6 +102,7 @@ class _CreateRoomState extends State<CreateRoom> {
                 var _room = Room(_namefield.text, passreq, _passfield.text);
                 _room.roomusers = {creator.createdby: creator.mapversion};
                 _room.userphones = [widget.phoneid];
+                addRoomToUser(widget.phoneid, _room.id, _room.name);
                 _room.pushRoomToFirebase();
                 Navigator.pushReplacement(
                   context,
