@@ -5,3 +5,7 @@ To get into the list view users first need to get into a list. This is done by e
 In a list, users are either admin or regular. Regular users can only leave the list and add/remove themselves from the queue while admins can remove anyone from queue and edit some other parts of the list (such as the list name).
 
 Another important feature of the app is the drawer of the home screen which is intended to show which lists a user is part of. This is convenient when revisiting the same lists often.
+
+iOS: https://testflight.apple.com/join/dn7enCPC
+Android debug apk: https://bit.ly/2OTVNgf
+
