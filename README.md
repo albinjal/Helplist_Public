@@ -6,9 +6,11 @@ In a list, users are either admin or regular. Regular users can only leave the l
 
 Another important feature of the app is the drawer of the home screen which is intended to show which lists a user is part of. This is convenient when revisiting the same lists often.
 
-# Try it out:
-  iOS: https://testflight.apple.com/join/dn7enCPC
-  Android debug apk: https://bit.ly/2OTVNgf
+**Try it out:**
+
+ iOS: https://testflight.apple.com/join/dn7enCPC
+ 
+ Android debug apk: https://bit.ly/2OTVNgf
 
 # Preview
 ![alt text](https://hogberg.io/helplistv3.png)
