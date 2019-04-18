@@ -10,3 +10,4 @@ iOS: https://testflight.apple.com/join/dn7enCPC
 
 Android debug apk: https://bit.ly/2OTVNgf
 
+![alt text](https://hogberg.io/helplistv3.png)
