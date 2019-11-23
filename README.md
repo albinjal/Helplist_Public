@@ -6,11 +6,8 @@ In a list, users are either admin or regular. Regular users can only leave the l
 
 Another important feature of the app is the drawer of the home screen which is intended to show which lists a user is part of. This is convenient when revisiting the same lists often.
 
-**Try it out:**
-
- iOS: https://testflight.apple.com/join/dn7enCPC
- 
- Android debug apk: https://bit.ly/2OTVNgf
-
 # Preview
 ![alt text](https://hogberg.io/helplistv3.png)
+
+
+-Note: this was my first Flutter project and i would say that I have improved a lot since i wrote it. If i did this project again I would have changed the project structure a bit and introduced some sort of global state management solution to increase efficency and code reusability.
